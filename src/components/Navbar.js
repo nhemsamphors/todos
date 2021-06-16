@@ -1,18 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { ThemeContext } from '../contextapi/ThemeContext';
 import {AuthContext} from '../contextapi/AuthContext';
-class Navbar extends React.Component{
-  
-    render(){
-      return(
-        <AuthContext.Consumer>{(AuthContext) => {
-          return(
-            <ThemeContext.Consumer>{(context) => { 
-              const {isDarkTheme, darkTheme, lightTheme } = context;
-              const theme = isDarkTheme ? darkTheme : lightTheme;
-              const {isLoggedIn, changeAuthStatus} = AuthContext;
-              return(
-              <nav style={{background: theme.background, color: theme.text, height: '120px'}}>
+
+const Navbar = () =>{
+ const {isDarkTheme, darkTheme, lightTheme} = useContext(ThemeContext)
+ const {isLoggedIn, changeAuthStatus} = useContext(AuthContext)
+ const theme = isDarkTheme ? darkTheme : lightTheme;
+  return(
+    <nav style={{background: theme.background, color: theme.text, height: '120px'}}>
               <h2 styel={{textAlign: 'center'}}>
               Ok Academy</h2>
               <p onClick={changeAuthStatus}>{isLoggedIn ? 'loggin' : 'loggout'}</p>
@@ -22,17 +17,7 @@ class Navbar extends React.Component{
               <button className='ui button'>Support</button>
             </div>
             </nav>
-          
-            )
-          }
-        }
-            </ThemeContext.Consumer>
-          ); 
-        }}
-        </AuthContext.Consumer>
-      )
-      
-          }
-        
+
+  )
 }
 export default Navbar;
